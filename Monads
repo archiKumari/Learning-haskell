@@ -1,0 +1,2 @@
+Reader Monad
+Reader Monad provides the facitily to create an abstract immutable environment of real values which can be used by all the functions or computations inside a monadic context.It is helpful when the same set of values are required by multiple functions in a composition of many functions. Without Reader Monad, for using the common set of values in different functions of a composition, the value set needs to be passed as an argument in all the functions of that compsition.It would make the programme more 

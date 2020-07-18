@@ -1,0 +1,160 @@
+READ THE ERROR MESSAGE CAREFULLY!! IT CAN SUGGEST YOU THE SOLUTION OF THE ERROR SPECIALLY THE 'POSSIBLE FIX' SECTION.
+
+For running a programme written in gedit in haskell, you have to search and open that file and then type :l filename.hs in terminal.
+
+For deleting ALL the swap files of a directory, type
+   find . -type f -name "*.sw[ijklmnop]" -delete
+in the terminal. It would search and delete all the files with extension .swi, .swj, .swk.. .swp.
+BE CAREFUL WHILE USING IT SINCE THE DELETION IS PERMANENT!
+
+when a function is not working try changing syntax
+ex- mod 9 3 will work instead of 9 mod 3
+    elem 4 [1,2,3,4] will work instead of 4 elem [1,2,3,4]
+    9 `mod` 3 and 4 `elem` [1..4] will work fine.
+
+to declre type of a function use :: operator
+
+to know type of anything use :t operator
+
+pythagoras theorum h^2= p^2+b^2 (hypotenous,perpendicular,base) 
+
+single quotes ' ' are used for single characters and double quotes " " are used for strings.
+
+GT >, LT <, EQ ==
+
+Data types are always used with first letter in uppercase. Eg- Int,Char
+
+For using an infix operator like a postfix operator, use paranthesis.
+Eg- 1+2 -> 3 using + as infix
+    (+) 1 2 -> 3 using + as postfix
+    (+1) 2 -> 3 using + as postfix
+
+For executing functions directly in ghci, use let command.
+eg- sum x y=x+y -> let sum x y=x+y
+1st expression will work as a function written in a text file and second will work directly in ghci. Both can be used in the same way.
+
+By default, variable with whole number value are of Integer type.For using the variable as Int type, it has to be specified explicitly.
+Eg- let a=10 :: Int
+Without specifying, the type of a will be Integer.
+
+By default, variable with fractional value are of Double type.For using the variable as Float type, it has to be specified explicitly.
+Eg- let a=12.4 :: Float
+Without specifying, the type of a will be Double.
+
+In case of numeric values,type of a value is different from type of the variable having the same item as value.In the type of a value,only the typeclass Num is displayed whereas in the type of variable, concrete data type is displayed.
+Eg- :t 5 -> 5::Num a=> a
+    let a=5
+    :t a -> a :: Integer
+In the 1st example, haskell cannot decide a concrete data type for numeric value 5,therefore only typeclass Num is displayed.In the 2nd example, since 5 is assigned to a,it is easily decided that 5 is an integer value.
+ 
+fromIntegral - If you want to use float types variables with a function which is predefined to work only with int type variables, use fromintegral function. 
+Eg- length is function used to know the length of a particular list, but suppose you want to add 3.2 in the output. Doing it directly like length [1,2,3,4] +3.2 will give an error message. But using it with fromIntegral (length[1,2,3,4])+3.2 will give you 7.2 which is the desired result. 
+
+While defining a function, you have to specify the typclasses of the variable to be used in the function.
+Eg- Suppose in a function you have to know whether a number x is seven or not. In this function, the value of x must be a number, so  you should write Num x and also value of x should be eligible to be used with == or \= operator so write Eq a in the defination.
+
+If unable to define the type of function, don't define it at first (Although it is better to write type signature first).Instead write the function directly and run it. After that ask haskell about the type of function using :t operator.   
+
+For testing type of a function,write the type signature of the function and write undefined in the definition part.Now the function can be tested by applying argument.  
+Eg-  let f::(Ord a,Eq b)=> a -> b -> a; f=undefined
+     :t f "Keyboard" "Hello"
+     "Keyboard" "Hello" :: [Char]
+     :t jackal "Keyboard" 
+     f "Keyboard" :: Eq b => b -> [Char]
+
+In haskell functions, when you don't care about the value of a certain variable you could replace it with _ (underscore) operator instead of creating a variable just for namesake. It would save memory space
+
+In function defination, use => after typeclasses and -> for arguments.The arguments and the output is separated by -> sign.In the defination,the last one is data type of output and the rest are data type of arguments.
+
+For displaying an error message in run time for a particluar input value ,error keyword can be used.
+Eg- lucky7 7="CORRECT"
+    lucky7 _=error "WRONG INPUT" 
+This would display an error message like - ***Exception:WRONG INPUT
+
+For displaying mixed output of string and the output string from a function,you have to insert ++ between the two in order to display both.
+Eg- putStrLn ("The output is:" ++ x)
+    x is output genarated by the function. This works only when x is a
+    string value.
+    
+For displaying mixed output of string and output of different data type,use show function.
+Eg- show 2++"hello"++show 3 -> "2hello3"
+    This works with outputs of every data type including string.
+
+For diplaying double quotes in output,use \" or '"'.
+Eg- putChar '"' -> "
+    putStr "\"" -> "
+
+Indentation is a prominent elememnt in haskell 
+Eg- cylinder r h =  
+ let sidearea = 2*pi*r*h
+     toparea  = pi*r^2
+  in sidearea+ 2*toparea
+in this function, the defination of sidearea,toparea and sidearea+ 2*toparea should be written just below each other. If definations would be written in a random way, It would show "parse error". 
+
+In function defination, a list is denoted as (x:xs), in which x is the head(first element of list)and xs is tail(remaining elements of list) 
+
+In haskell programming, functions can be used as inputs/outputs and also as operators.
+
+Type class constraints are NOT added in data declarations. They are generally added in the function defination.Since the typeclass is not mentioned in the declaration of vector data type,Vector t can take three values of any data type (according to the type of function.)
+
+For adding single line comment, use -- operator
+For adding multi line comments, use {- -} operator 
+
+In an arithmetic equation having $ operator, the use of paranthesis can effect the output drastically.
+Eg-(^5)$10 -> 10^5 -> 100000
+   (^)5$10 -> 5^10 -> 9765625
+
+Just like concrete values,operators can also be assigned to a variable.
+Eg- let x=print;z=x "hello" -> "hello"
+    let a=(+);b=5;c= a b 10 -> 15
+
+use foldl1 and foldr1 in the functions where empty lists are not used,otherwise it would cause run time error. 
+For functions with epmty lists, use foldl and foldr,they work fine.
+
+If you get a stack overflow error while using foldr or foldl, use foldr' or foldl' instead.
+
+Use :browse command to obtain a list of functions present in a module or a file.
+
+If a function has multi-line definition,then defination should be further indented than the function name written in upper line.
+Eg- quicksort (x:xs)=
+      let smallsort=quicksort (filter (<=x) xs)
+Here if let would be written exactly down or before quicksort,it would show parse error. 
+
+:info can be used to obtain information about data types,functions, operators and typeclasses -- 
+ 1. :info data type can give information about data type declaration and the typeclasses of which that data type is an instance.
+Eg- :info Int will show the declaration of Int data type and the various typeclasses which have instance declarations for Int
+ 2. :info typeclass can give information about the types and operators which are instances of that particular typeclass.
+Eg- :info Num will display the operators, funtions and type construcors which are instances of Num Typeclass.
+ 3. :info operator will show the type signature, associativity and precedence order of the operator.
+Eg- :info + -> (+)::a->a->a infixl 6 + 
+It means + is left associative operator with precedence order 6. 
+
+Operator with higher precedence is applied first.To know the precedence of an operator,use :info command.
+Eg- :info (+) -> infixl 6 + => + has precendence of 6.
+
+Press ctrl+D to interupt the programes where the user is required to enter input continuously and the respective output has to be displayed.
+
+Press ctrl+C to interrupt infinite programs.
+
+Press ctrl+Z to interrupt infinite program and quit ghci simultaneously.
+
+Press :!clear to clear terminal.
+
+For defining function directly in GHCi, use :{ let funcName = ...... :}
+
+For checking if pattern matching is non-exhaustive or not, use :set -Wall. It would display a message if the patterns are non exhaustive. 
+
+For displaying contents of a text file on the output screen,
+type $ cat file_name.txt and press enter.
+
+If haskell is showing an error message for a function continuosly,it might be possible that there is an error in the previous function i.e. the function written just above the current function (in the file which contains both the functions).
+
+The primary difference between Int and Integer data type is that Integer variable can store larger value as compared to Int variable.
+
+Typing :browse in Prelude will give the list of functions, typeclasses and data types that are imported by Prelude.
+
+** is called floating point exponentiation. It is similar to ^ (power) operator but it returns the result as floating point number instead of int.
+
+After loading a file in ghci, ghci prompt changes to >Main from >Prelude. For unloading the file, use :m (:module).
+
+Although data types can be defined using Sum and Product keywords,but they are not generally used because it reduces the clarity of the code. It is easier to define data types without them.

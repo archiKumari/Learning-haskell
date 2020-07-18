@@ -1,0 +1,324 @@
+ARITHMETIC FUNCTIONS
+
+max = returns maximum of two
+
+min = returns minimum of two
+
+abs = returns absolute value of number
+
+negate = returns negative value of a number.
+
+div - takes two numbers and returns their quotient.
+Eg- div 4 2 -> 2
+
+quot-takes two arguments and returns their quotient.
+Eg-quot 4 2 -> 2
+
+rem - takes two numbers and returns their reminder.
+Eg- rem 4 2 -> 0
+
+mod -  takes two numbers and returns their reminder.
+Eg- mod 4 2 -> 0
+
+divMod - takes two numbers and returns qoutient and reminder in the form of a tuple.
+Eg- divMod 4 2 -> (2,0)
+
+^ - power operater
+Eg- 2^3 -> 8
+
+id - it is the identity function of Haskell defined in Standard Library.
+It returns the argument itself as the result without changing it irrespective of its data type.
+eg- id 1 -> 1
+    id 3.5 -> 3.5
+    id 'a' -> a
+    id "hello" -> "hello"
+
+LIST FUNCTIONS
+
+for accessing the list by index number use the symbol !!
+Eg- [1..5]!!2 -> 3
+
+\ - \ is the list difference function. It acts like a set difference, basically. For every element in the right-hand list, it removes a matching element in the left one.
+Eg- [1..10] \\ [2 ,5 ,9] -> [1 ,3 ,4 ,6 ,7 ,8 ,10]
+
+elementry functions-sum product maximum minimum( work as there name suggests)
+
+head - takes a list and returns its head. The head of a list is basically its first element.
+ghci > head [5 ,4 ,3 ,2 ,1] -> 5
+
+tail - takes a list and returns its tail. In other words, it chops off a list’s head.
+ghci > tail [5 ,4 ,3 ,2 ,1] -> [4 ,3 ,2 ,1]
+
+last - takes a list and returns its last element.
+ghci > last [5 ,4 ,3 ,2 ,1] -> 1
+
+init - takes a list and returns everything except its last element.
+ghci > init [5 ,4 ,3 ,2 ,1] -> [5 ,4 ,3 ,2]
+
+length - takes a list and returns its length, obviously.
+ghci > length [5 ,4 ,3 ,2 ,1] -> 5
+
+null - checks if a list is empty. If it is, it returns True , otherwise it returns False . Use this function instead of xs == [] (if you have a list called xs)
+ghci > null [1 ,2 ,3] -> False
+ghci > null [] -> True
+
+reverse - reverses a list.
+ghci > reverse [5 ,4 ,3 ,2 ,1] -> [1 ,2 ,3 ,4 ,5]
+
+take - takes number and a list. It extracts that many elements from the
+beginning of the list.
+ghci > take 3 [5,4,6,7] -> [5,4,6]
+
+drop - works in a similar way, only it drops the number of elements from
+the beginning of a list.
+ghci > drop 3 [8 ,4 ,2 ,1 ,5 ,6] -> [1 ,5 ,6]
+ghci > drop 0 [1 ,2 ,3 ,4] -> [1 ,2 ,3 ,4]
+
+elem - takes a thing and a list of things and tells us if that thing is an element of the list. It’s usually called as an infix function because it’s easier to read that way.
+ghci > 4 ‘ elem ‘ [3 ,4 ,5 ,6] -> True
+ghci > elem 10 [3 ,4 ,5 ,6] -> False
+
+takeWhile - takes a condition and a list and displays all the elements  before the first element which does not satisfies the condition in the form of a list.
+Eg- takeWhile (<5) [1..10] -> [1,2,3,4]
+
+dropWhile - takes a condition and a list and displays all the elements  after the first element which does not satisfies the condition in the form of a list.
+Eg- dropWhile (<5) [1..10] -> [5,6,7,8,9,10]
+
+zip - takes two lists and combine them simoultaneously(1st elememt with first, 2nd elememt with second and so on).In case one list is longer than the other, longer is cutoff to the lenght of shorter one to make them equal.
+Eg- zip [1,2,3] [4,5,6] -> [(1,4),(2,5),(3,6)]
+
+unzip - takes a zipped list and restores it to original form.
+Eg- unzip$zip [1,2,3] [4,5,6] -> ([1,2,3],[4,5,6])
+
+map - takes a function and a list and applies the function to each element of the list hence creating a new list. It's really versatile.
+Eg- map (+3) [1,2,3] -> [4,5,6]
+
+filter - takes a predicate(condition which returns true/false) and a list and gives a list of those elements which satify the predicate as output.
+Eg- filter (>3) [2,3,4,5] -> [4,5]
+
+intersect - works like set intersection. It returns only the elements that are found in both lists.
+Eg- [1..7] ‘ intersect ‘ [5..10] -> [5 ,6 ,7]
+
+notElem - It is the opposite of elem function.It takes a value and a list and returns True if that value is not the element of the list specified.
+Eg-notElem 2 [..5]-> False
+
+replicate - takes a number and replicates it required times
+Eg- replicate 3 5 -> [5,5,5]
+
+concat - concatenates all the lists within a list to one list.
+Eg- concat [[1,2],[3,4]] -> [1,2,3,4]
+
+sortBy - takes an ordering function and a list and sorts the according to the function specified.
+Eg- sortBy (\(Jam f1 j1) (Jam f2 j2)-> compare j1 j2) row
+It would sort the list of JamJars according to the number of jars in ascending order. (see ex.hs)
+
+concatMap - takes a function, applies it to the list and then concatenates the whole list into one list.
+Eg- concatMap ( replicate 4) [1..3]
+[1 ,1 ,1 ,1 ,2 ,2 ,2 ,2 ,3 ,3 ,3 ,3]
+
+and - takes list of boolean values and returns true if all values are true.
+
+or - takes list of boolean values and returns true if any one element is true.
+
+any - takes a predicate and a list and returns true if any of the elements satisfy the predicate.
+Eg- any (==4) [2 ,3 ,5 ,6 ,1 ,4] -> True
+
+all - takes a predicate and a list and returns true if all of the elements satisfy the predicate.
+Eg-all ( >4) [6 ,9 ,10] -> True
+
+splitAt - takes a number and a list and splits the list at that number and returns the resulting lists in the form of a tuple.
+Eg- splitAt 3 "ABCDEF" -> ("ABC","DEF")
+
+span - works same as takeWhile. But returns two lists, first with the elements till satisfying the predicate and second elements after that.
+Eg-span (<=5) [1,2,3,4,5,6,7,8,9,10]
+([1,2,3,4,5],[6,7,8,9,10])
+
+break - takes a predicate and a list and breaks the list into two lists. First list contains the all the elements staring from 0 to the first element which satisfies the predicate and second contains the rest of elements.
+
+partition - takes a predicate and a list and returns two lists. first with the elements which satisfy the predicate and second which do not.
+
+The major difference between partition and span,break is that span and break return the lists as soon as they encounter the first value which does not satisfy the predicate. 
+
+GENERAL FUNCTIONS
+
+flip - takes a function with arguments and applies the arguments to the function in reverse order.
+Eg- func x y when applied to flip will display the result of func y x
+
+const - takes two arguments and returns the first one as it is.
+Eg- const "Hello" 3 -> "hello"
+    const 4 32.4 -> 4
+
+ENUM FUNCTIONS
+
+enumFromTo - takes two arguments and displays all the elements coming in between them.This function works in ascending order.
+Eg- enumFromTo 1 10 -> [1,2,3,4,5,6,7,8,9,10]
+    enumFromTo 10 1 -> []
+    enumFromTo 'a' 'z' -> "abcdefghijklmnopqrstuvwxyz"
+
+enumFromThenTo - takes three arguments and displays the elements from 1st argument to 3rd argument according to the difference between 1st and 2nd argument.
+Eg- enumFromThenTo 1 10 100 -> [1,10,19,28,37,46,55,64,73,82,91,100]
+    enumFromThenTo 0 10 100 -> [0,10,20,30,40,50,60,70,80,90,100]
+    enumFromThenTo 'a' 'c' 'z' -> "acegikmoqsuwy"
+In 1st case,difference between 1 and 10 is 9 so,all the consecutive elements of list have a difference of 9.Similarly,in the 2nd case difference between 0 and 10 is 10 and in 3rd case 'a' and 'c' have difference of one alphabet.So the results are displayed accordingly.
+
+INFINITE FUNCTIONS
+
+cycle - takes an element and produces an infinite list of just that element.It’s like cycling a list with only one element.
+Eg- take 10 ( cycle [1 ,2 ,3]) -> [1 ,2 ,3 ,1 ,2 ,3 ,1 ,2 ,3 ,1]
+    take 12 ( cycle " LOL " ) -> " LOL LOL LOL "
+
+repeat - takes a value and creates an infinite list of the same. Although it’s simpler to just use the replicate function if you want certain number of the same element in a list.
+Eg - replicate 10 5 -> [5,5,5,5,5,5,5,5,5,5]
+     take 10 (repeat 5) -> [5,5,5,5,5,5,5,5,5,5]
+
+The main difference between cycle and repeat is that cycle creates a list by repeating the arguments and then take function extracts the required number of terms from it and repeat function repeats the argument same number of times as equal to argument given in take function.
+Eg- take 10 (cycle [1..5]) -> [1,2,3,4,5,1,2,3,4,5]
+    take 10 (repeat [1..5]) -> [[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5]]
+
+TUPLE FUNCTIONS
+
+fst - takes a pair and returns its first component.
+Eg- fst (8 ,11) -> 8
+    fst ("Wow",False) -> "Wow"
+
+snd - takes a pair and returns its second component.
+Eg- snd (8 ,11) -> 11
+    snd ("Wow",False) -> False 
+
+STRING FUNCTIONS
+
+words and unwords are for splitting a line of text into words or joining a list of words into a text. Very useful.
+Eg- words "hey these are the words in this sentence"
+ -> ["hey","these","are","the","words","in","this","sentence"]
+    unwords [ " hey " ," there " ," mate " ]
+ -> "hey there mate "
+
+The ord and chr functions convert characters to their corresponding num-
+bers and vice versa:
+Eg- ord ’a ’ -> 97
+    chr 97  ->’a’
+
+intersperse - takes an element and a list of elements and returns a list with that element inserted between each element of the list.
+Eg- intersperse '*' "Hello" -> "H*e*l*l*o"
+    intersperse 0 [1..5]    -> [1,0,2,0,3,0,4,0,5]
+
+IO FUNCTIONS
+
+return- return function in haskell is used same as return in C++. For IO functions return () is used and in other functions, return (variable value) is used.
+ 
+print- takes a value of any data type, converts it into string and then prints it as output on the screen. 
+
+putStrLn- takes a string and displays it as output on the screen.
+
+putStrLn can only print the string values but print command can print the values of any data type.print function doesnot consider commands like \n or \t and prints the text as it is whereas putStrLn function prints the text by considering \n or any such commands.
+Eg- print 5-> 5
+    putStrln 5 -> Error Message!
+    putStrln "5" -> 5
+(putStrLn can display strings only.If the argument is of any type other than string, it is converted to string by using double quotes ("") but print can display values of any data type by using suitable punctuations beacuse it automatically converts the given value to a string before printing.
+    print "Hello" -> "Hello"
+    putStrLn "Hello" -> Hello
+    print "\tHello" -> "\tHello"
+    putStrLn "\tHello" ->	Hello
+(prints the text by leaving the space of one tab)
+
+putStr-used to display output on string.
+putStrLn is same as putStr+/n i.e. putStr displays output as it is and putStrLn displays the output and then a /n (new line character).
+Eg-Prelude>putStr "Hello"
+   HelloPrelude>
+   Prelude>putStrLn "Hello"
+   Hello
+putStrLn executes /n after text hence Prelude will appear in the next line after the text instead of same line as in putStr.
+
+putChar-used to print single character on screen without /n.
+
+getContents - reads the input directly from the terminal until it encounters the EOF character(end of file) i.e. Ctrl+D.It is a "lazy function",it will read the input from the terminal only when the inout is required to be displayed after processing.It can be used either to obtain long text directly from user or to obtain the contents of a text file as input for a program (which requires piping).
+
+interact - takes a function of type String -> String as a parameter and returns an I/O action that will take some input, run that function on it and then print out the function’s result.This function reduces the program code considerably.For using interact function,just define a function of type String->String and write main=interact function_name.
+
+when-It takes a boolean value and an I/O action.If that boolean value is True,it returns the same I/O action that we supplied to it. However,if it’s False,it returns the return () action,an I/O action that doesn’t do anything.
+It is useful for encapsulating the 
+if <something> then do <some I/O action> else return () pattern.
+
+sequence- It takes a list of IO actions and returns one IO action that performs all the IO actions of the given list one by one.
+Eg- map print [1..5] -> ERROR
+This will create a list of IO actions to print 1,2,3 respectively, which cannot be executed without a function.Hence error is displayed.To perform this action,sequence function can be used as-
+    sequence (map print [1..5])-> 1
+                                  2
+                                  3
+                                  4
+                                  5
+                                  [(),(),(),(),()]
+                   
+mapM-mapM takes a function and a list, maps the function over the list
+and then sequences it (applies the sequence function on the output).
+Eg-mapM print [1 ,2 ,3]
+-> 1
+   2
+   3
+   [(),(),()]
+
+mapM_ -mapM_ takes a function and a list, maps the function over the list,sequences it and throws away the result.
+Eg-mapM_ print [1,2,3]
+-> 1
+   2
+   3
+   
+forever- It takes an IO action and returns another IO action which just repeats the IO action which it has got from forever.
+Eg- forever$do print [1..5]
+It keeps on printing [1,2,3,4,5] continuously until interupted.
+
+forM-It takes a list and a function which is first mapped over the list and then sequenced.
+
+read- read :: Read a => String -> a
+It de-stringifies a string value i.e. it converts the value to its actual form,which is specified by user.
+
+show- show :: Show a => a -> String
+It srtingifies a value of any other data type i.e. it converts the value to a string.
+
+For any value to be displayed on the output screen,it must be converted into string,hence show is used.Similarly a value displayed in the screen is of string type and needs to be converted into its actual data type to be used further,hence read is used.Although read is used rarely.
+
+FILE FUNCTIONS
+
+READFILE FUNCTION
+readFile :: FilePath -> IO String
+It takes a file name (path to a file) and returns an I/O action that will read that file and bind its contents to something as a string.
+Eg- contents<-readFile "words.txt"
+This will bind the contents of file worsd.txt to the variable contents.
+This function automatically closes the file after reading it.Here function fClose cannot be used as the IO action to read the file is not stored in a handle and fClose needs a handle to close the file.
+
+WRITEFILE FUNCTION
+writeFile :: FilePath -> String -> IO ()
+It takes a file name and a string to be wriiten in the file and returns an IO action that writes the string on the file specified.If the file already contains some data,it is deleted and the new contents is written.
+
+APPENDFILE FUNCTION
+appendFile :: FilePath -> String -> IO ()
+It takes a file and a string to be written in the file and returns an IO action that appends the string after the text already written on the file specified.
+
+HFLUSH FUNCTION
+hFlush is a function that takes a handle and returns an I/O action that will flush the buffer of the file associated with the handle.When we’re doing line-buffering, the buffer is flushed after every line. When we’re doing block-buffering, it’s after we’ve read a chunk. It’s also flushed after closing a handle. That means that when we’ve reached a newline character,the reading (or writing) mechanism reports all the data so far. But we can use hFlush to force that reporting of data that has been read so far. After flushing,the data is available to other programs that are running at the same time.
+
+RANDOM FUNCTIONS
+
+random function - takes a random generator which could act as a source of randomness and and returns a random value and a new random generator.
+random :: (RandomGen g, Random a) =>g -> (a, g)
+
+randoms function - takes a random generator and returns an infinite sequence of values based on that generator.
+Eg-take 5 $ randoms (mkStdGen 11)::[Int]
+-> [-1807975507,545074951,-1015194702,-1622477312,-502893664]
+Here [Int] can be replaced with any other data type to get a list of random value of that data type. 
+
+randomR function - It takes a generator and a pair of values which are the lower and upeer limits for the random value. The random value obtained would lie between the range specified in the function call.
+randomR::(RandomGen g, Random a)::(a, a)-> g -> (a, g)
+Eg- randomR (1,6) (mkStdGen 359353) -> (3,1250031057 40692)
+
+randomrs function - It produces a sequence of random values within the range specified in the function call.
+Eg- take 10 $ randomRs (’a’,’z’) (mkStdGen 3)::[Char]
+ -> " ndkxbvmomg "
+
+getStdGen function - returns an IO action that asks the system for a random number and stores it in a global generator. That global random generator is stored in the variable by which getStdGen in binded.
+Eg- gen<-getStdGen 
+This will fetch a global random generator from the system and store it in gen.Now gen can be used as a generator in the program. 
+Note- If getStdGen is called multiple times in the same function, then it would return the same value hence returning the same set of random numbers as output.
+
+newStdGen function - takes a random generator from the system and split it into the two random generators. One of them is stored in the variable by which newStdGen is binded and the other is updated as the global random generator.
+

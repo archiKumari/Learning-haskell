@@ -1,0 +1,479 @@
+LISTS - collection of data of same data type in a single variable.In function defination, a list is denoted as (x:xs), in which x is the head(first element of list)and xs is tail(remaining elements of list).
+
+LIST OPERATORS
+For accessing the list by index number use the symbol !!
+++ - used for joining two lists and for adding an element in the last,also called appending.
+Eg- [1,2,3]++[4,5,6] -> [1,2,3,4,5,6]
+    [1,2]++[3] -> [1,2,3]
+    []++[1] -> [1]
+: - Used for adding an element in front,also called prepending.
+Eg- 1:[2,3] -> [1,2,3]
+    1:[] -> [1]
+
+Ranges - instead of writing whole series, we use shorcuts.(can be used only for sequencial elements)
+ghci > [1..10]
+[1 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10]
+ghci > [ ’a ’.. ’ z ’]
+" abcdefghijklmnopqrstuvwxyz "
+ghci > [ ’K ’.. ’ Z ’]
+" KLMNOPQRSTUVWXYZ "
+For reverse ranges write [20,19,...1] not [20...1]
+
+LIST COMPREHENSIONS
+S = [x|x<-[1..10]]. set for first ten even natural numbers 
+The part before the pipe(|) is called the output function, 
+x is the variable, N is the input set and x <= 10 is the
+predicate(condition).
+NOTE- This can be used to display all possible outputs formed by grouping two lists (like the sample space of probability questions)
+Eg- 1.All possible outputs of 3 coins tossed.
+[(x,y,z)|x<-["H","T"],y<-["H","T"],z<-["H","T"]]
+-> [("H","H","H"),("H","H","T"),("H","T","H"),("H","T","T"),("T","H","H"),("T","H","T"),("T","T","H"),("T","T","T")]
+    2.All possible outputs for 2 dices thrown.
+[(x,y)|x<-[1..6],y<-[1..6]] 
+-> [(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(2,1),(2,2),(2,3),(2,4),(2,5),(2,6),(3,1),(3,2),(3,3),(3,4),(3,5),(3,6),(4,1),(4,2),(4,3),(4,4),(4,5),(4,6),(5,1),(5,2),(5,3),(5,4),(5,5),(5,6),(6,1),(6,2),(6,3),(6,4),(6,5),(6,6)]
+
+TUPLES
+collection of data(of different data types).Data type of tuples depends upon the data type of elements.The number of elements in a tuple is called airity of tuple.Import Data.Tuple to use various tuple functions (few of them are already imported by Prelude).
+
+DATA TYPES
+Haskell has many prdefined data types-
+
+Integrals- Positive and negative whole numbers.
+Int- Whole number numeric values. Cannot have arbitarily large or small values. The value of an Int variable has max and min bounds i.e. -2147483647 <= Int <= 2147483647.
+Integer- Whole number numeric values. Can have arbitarily large or small values. The value of Integer variable can be as small or as large as required, there are no bounds.
+
+Fractionals- Positive and negative integer values with fractional component.
+Float- Single precision floating point numbers. Eg- 6.9
+Double- Double precision floating point numbers. Eg- 6.95
+Rational-Ratio with two separate values-numerator and denominator.Eg-1/2
+Scientific- Space efficient and represented by scientific notation. Stores coefficient as Integer and exponent as Int.Eg- 1e200
+
+TYPECLASSES
+Typeclass is kind of categories among which data types can be divided. One data typecan belong to many typeclasses.It describes the behaviour of certain variables and functions declared in a particular data type. If a data type is a part of a typeclass, it means it would implement the behaviour described by its respective typeclass. 
+
+EQ TYPECLASS
+Eq members must be eligilble for equity realated comparisons. It means members of eq must be comparable to each other using == and \= operators.
+
+ORD TYPECLASS 
+Ord members should be eligible to be arranged in a particular order(ascending or descending) using the <,>,<=,>= operators. 
+compare can be used to compare two elements of same data type and returnan ordering in the form of gt,lt or eq(>,<.==).
+Eg compare 4 5
+LT(less than)
+
+SHOW TYPECLASS 
+show members can be displayed as strings. All the data types used till now can be shown as strings
+Show function takes an expression and displays it as a string
+eg - ghci> show 3
+"3"(3 is displayed as a string)
+
+READ TYPECLASS 
+read takes a string of any type and displays it as the actual data type.If the string contains an integer it would display it as an integer, works similarily in the case of float,char bool etc. 
+Eg - read "4" + 3
+7 (answer is displayed as int because 2nd argument was of type int)
+if we write just read "4", error message will be displayed because we have not specified about the data type in which we want "4" to be displayed. For this we have have to explicitly specify the data type(also called as type annotations) in which we want our argument to be displayed.
+Eg - read "4" :: Int
+4   
+read doesnot work with char or strings. it means it would show an error message if you try to give a char or a string as input and want a string or char as output.
+
+ENUM TYPECLASS
+Enum members are sequentially ordered data types, it means elements of this enum data types can be ordered, they have defined successors and predessors. Like numbers, characters floats etc.
+
+BOUNDED TYPECLASS
+Bounded members have upper and lower bounds(limits).To know the bounds of certain data type, we need to use functions maxbound(upper limit) and minbound(lower limit).
+Eg- minBound::Int
+  -2147483648 (minimum value of a variable of data type Int)
+
+NUM TYPECLASS
+Num is a numeric typeclass. Num members should have the ability to act like numbers.Num members are also members of show and eq typeclasses.
+Integral is also a numeric typeclass. Num includes all numbers, i.e. Integral numbers and Fractional numbers.
+Integral includes whole numbers - Int and Integer.
+Fractional includes floating point numbers - Float and Double.
+
+KIND 
+It can be defined as type of a data type.If the data type is concrete, it's kind is specified as * otherwise kind depends on the data type.
+Eg- :k Int -> * (Int is concrete)
+    :k [] -> * -> * (List is concrete when a data type is applied to it)
+    :k Char -> * (Char is concrete)
+    :k (,) -> * -> * -> * (It is concrete when two data types are
+                           applied to form a tuple.)
+
+IF EXPRESSION
+It has syntax- if CONDITION then EXPRESSION 1 else EXPRESSION 2.
+If the condition evaluates to True then expression 1 will be executed and if condition evaluates to False then expression 2 will be executed.
+Eg- if (5>10) then 5*5 else 5+10 -> 15
+
+POLYMORPHISM
+This means 'made of many forms'. This feature enables the user to define functions which can work with different data types using the same definition.
+
+Functions are of 3 types -
+1. Fully polymorphic - These functions can work with almost any data type using the same definition.
+Eg- id function
+2. Constarined polymorphic -Also called ad-hoc polymorphism.These functions have typeclass constrains i.e. they would work only with the data types which are instances of the typeclass specified in type signature.
+Eg- sum function 
+3. Concrete - These functions are defined to work only with specific data types.
+Eg- String functions
+
+RECURSION
+When we define a function in a repeating manner.It means we define the only the base or edge condition and that output is used to generate further outputs.
+Eg- In factorial function, we define factorial 0=1 and factorials greater than 0 are defined as facorial n = n*factorial(n-1). During the compilation, n will eventually reach 0 whose value will be 1 and then calculate the value of chain thus created.
+
+PATTERNS 
+Can be used to create a namesake of a list.Instead of writing the same list repeatedly just use its pattern or namesake.
+Eg-capital all@(x:xs) = "Letter" ++ all (all is written instead of(x:xs)
+Patterns can't be used with ++. A@(1,2) and B@(3,4).you can't do A++B
+
+GAURDS 
+Can be used to test a condition on the input before execution of the function (Used as if else statement in c++)
+syntax - | condition 1 = function 1
+         | condition 2 = function 2
+         | otherwise last condition = function 3
+
+If you have to repeat the same expression multiple times in the if else statements, use where command in the last line instead of repeating whole expression.
+Eg- In the bmitell function, instead of writing the formula for calculating bmi in each condition, we could write bmi in every condition and then in the last line define the formula of bmi using where command.
+
+LET
+let command  is used to assign value to a variable in a function or in a list and also to introduce functions in local scope.
+Eg- let a=1 in a+2(a is assigned value 1 in the expression a+2)
+ or [let square x=x*x in (square 2,square 3,square 4)]  
+ or let (a,b,c)= (1,2,3)
+
+CASE EXPRESSIONS 
+Case expressions are used if a function is required to accept different inputs and display different outputs accordingly.
+Syntax- function name xs = case xs of condition 1 -> output  
+                                      condition 2 -> output  
+
+POINTFREE FUNCTION
+In this method,the functions are defined without using argument variables.Pointfree functions are easier to read and more efficient.
+Eg- add x y-> x+y-> add 4 5 -> 9
+    addPf -> (+)-> addPf 4 5 -> 9
+    
+1st function is defined normally and the 2nd function is defined in pointfree style. Both have the same functionality but 2nd is easier to define.
+
+SORTING
+A sorted list is a list in which all the elements are arranged in ascending order. It works in the following algorithm- firstly value of first element(generally) is taken and the remaining list is separated in two lists. First containing the elements that are smaller than head and second containing the elements greater than head.Now the same algorithm is applied to both the lists recursively until both reach the base case i.e. empty list. Then the sorted list of smaller elements , the head and list of larger elements are concatenated to form a sorted list.  
+
+CURRIED FUNCTIONS 
+Currying is an algorithm in functional programming where functions are defined to return a function as output not the value of output.Officially every haskell function takes only one argument as input, so the functions which appear to take multiple outputs are actually using the concept of currying to derive the required outputs.
+Examples-
+    1.sum takes two values and returns their sum. when we do sum 4 5,
+firslty the value 4 is concatenated with sum (output function of sum 4).It can be represented as (4+).Then (4+) is concatenated with 5 hence giving (4+5) i.e. 9 which is the required result. 
+    2.Curriying can also be used for defining single variable functions without variables (although they are less readable) 
+Eg- divideby10 =(/10)-> divideby10 200 -> 20.0
+when divideby10 200 is evoked, divideby10 is replaced by (/10) in the expression, resulting in (/10) 200 which is equivalent to 200/10.
+ Note-It doesnot work with functions concerning characters and strings.
+
+LAMDAS  
+Lamdas are annonymous functions which are generally used just once.It is easier to use a lamda instead of defining a new local function for single use. Syntax- /x->x+3 - here x is function(variable name) and the statement after -> is function definition
+
+FOLDS 
+fold function requires a binary operator, a starting value(accumulator) and a list and 'folds' the list into one output by using the binary operator provided.The operator is applied to accumulator and the first or last value of the list, the value obtained and next element of list is applied to the operator and the process continues till the last element of the list is reached.
+
+The functioning of folds can be checked in ghci as follows -
+Prelude> let f = (\x y -> concat ["(",x,"+",y,")"])
+Prelude> foldl f "0" (map show [1..5])
+"(((((0+1)+2)+3)+4)+5)"
+Prelude> foldr f "0" (map show [1..5])
+"(1+(2+(3+(4+(5+0)))))"
+
+There are varoius types of folds - 
+foldr- It evaluates from innermost cons cell to outermost cons cell (head) sequenciallly i.e. Accumulator and last value are applied first to the operator.Can work with infinite lists.
+Eg- foldr (-) 0 [1,2,3,4] -> -2
+Execution- (1-(2-(3-(4-0))))
+foldl-It evaluates from outermost cons cell to innermost cons cell sequenciallly i.e. Accumulator and first value is applied first to the operator.Displays the result only after it reaches the last element of the list. So,it cannot work with infinite lists.
+Eg- foldl (-) 0 [1,2,3,4] -> -10
+Execution- ((((0-1)-2)-3)-4)
+foldr1- Similar to foldr but does not require accumulator. Instead last and second last values are applied to the operator.
+Eg- foldr1 (-) [1,2,3,4] -> -2
+Execution- (1-(2-(4-3)))
+foldl1- Similar to foldl but does not require accumulator. Instead first and second values of list are applied to the operator.
+Eg- foldl1 (-) [1,2,3,4] -> -8
+Execution- (((1-2)-3)-4)
+
+SCAN
+Scan works similarly as fold but it returns a list instead of one single value.
+Eg- scanr (+) 0 [1,2,3,4] -> (1+(2+(3+(4+(0))))) -> [10,9,7,4,0]
+    scanl (+) 0 [1,2,3,4] -> (((((0)+1)+2)+3)+4) -> [0,1,3,6,10]
+    scanr1 (+) [1,2,3,4] -> (1+(2+(3+(4)))) -> [10,9,7,4]
+    scanl1 (+) [1,2,3,4] -> ((((1)+2)+3)+4) -> [1,3,6,10]
+    
+$ 
+$ operator is referred as function application. Whenever $ is encounterd, the expression on the right side is applied as argument to the function on left.It can be used as the replacement of parantheses.It is right associative.
+Eg- sqrt (4+5)-> 3.0 this can also be written as sqrt$4+5-> 3.0     
+
+. 
+Composition operator(.) is used to combine two functions like-
+Eg- f g(x) -> x would be applied as input in g(x) and the result hence obtained will be input for f().In haskell f g(x) can be written as f.g. 
+
+MODULES 
+Module is a collection of related functions and typeclasses. 
+Syntax for loading a module is import moduleName.
+Modules should be imported before defination of any function i.e. on the top of a file.Since prelude imports few of the functions from various modules so there can be errors regarding this. For avoiding this modules can be loaded with modified name.
+Eg- same function filter is present in Data.List and Data.Map. So filter function of Data.Map can be imported as import Data.Map as Map.
+Eg-Data.List,Data.Char,Data.Map
+
+USER DEFINED DATA TYPES 
+New data types can be defined using the data keyword.
+Eg- data Shape=Circle Float|Rectangle Float Float deriving Show
+        (name) ('value constructors')
+It means can take two values- either circle which has 1 argument of float type or rectangle which has 2 arguments of float type.
+Actually circle and rectangle are funtions which take float values and return shape values.They can be used as general functions.  
+Functions can also be defined using shape data type
+Eg- area::Shape->Float
+area (Circle r)=pi*r^2
+area (rectangle l b)=l*b
+
+In the data type declaration,the value declared first is lesser than the second and so on.
+Eg- Circle<Rectangle -> True 
+
+Functions defined using Shape data type can be used in any program by importing them using-
+ module shapes
+( Shape (..)
+, area
+)
+It means whoever imports shapes module can use all the funtions defined using shape type.(..) means Any body could make a cirlce or rectangle using circle or rectangle function and calculate its area.Use of value constructor can be restricted by importing Shape without (..).Now the user can only calculate area of shapes and cannot define his own circles and rectangles. This way program can be made more abstract by hiding the implementations. 
+
+TYPE CONSTRUCTORS AND VALUE CONSTRUCTORS
+Type constructors take types as parameters and returns a new data type same as value constructor shape takes either one or two values and produces a shape value acoordingly(one value-circle,two values rectangle)
+
+TYPES OF VALUE CONSTRUCTORS
+There are mainly three types of value constructors -
+ 1.Nullary - They don't take argument so they are constant values which represent there respective data types.
+Eg- Bool=True|False 
+ 2.Unary - They take one argument of a concrete data type and produce value of corresponding data type.
+ 3.Product - They take more than one arguments and produce value of corresponding data type.
+Eg- data Shape=Circle Float|Rectangle Float Float
+Here Circle is unary and Rectangle is product value constructor.
+
+DIFFERENCE BETWEEN VALUE CONSTUCTOR AND TYPE CONSTRUCTOR
+When declaring a data type the part before = is type constructor and part after = is value constructor.
+Eg-data Vector a=Vector a a a deriving (Show)
+Here if vector is to be used in a function,its Type signature would be Vector t->Vector t->Vector t and the value will be vector i j k and vector l m n.Vector i j k is argument of Vector data type. 
+Eg-vsum::Vector t->Vector t->Vector t
+   vsum=Vector i j k `vplus` Vector l m n
+
+DERIVED INSTANCES
+A data type can be made an instance of any typeclass(Eq,Ord,Show,Read,Bounded,Enum) by using 'deriving' keyword.When deriving keyword is used,haskell derives the instances of standard typeclasses for that data type.For making a data type an instance of a typeclass,its parameters should individually belong to that particular typeclass.
+Eg- For Vector t to be part of Eq typeclass, its three parameters, a,a,a, should be part of Eq typeclass individually.
+
+Typeclasses can also be defined by user.
+Eg-class Eq a where
+(==):: a -> a -> Bool
+(/=):: a -> a -> Bool
+x == y = not ( x /= y )
+x /= y = not ( x == y )
+Eq typeclass are implemented in terms of mutual recursion.This means if two instances of Eq are equal if they are not different and they are not equal if they are different.
+
+Instead of using deriving keyword,Instances of any standard typeclass for a data type can also be defined by the user.
+Eg- 
+data TrafficLight = Red | Yellow | Green 
+instance Eq TrafficLight where
+Red == Red = True
+Green == Green = True
+Yellow == Yellow = True
+_ == _ = False
+This is the instance declaration of data type TrafficLight for Eq typeclass.It simply means that instances Red,Green and Yellow are equal to themselves only and all other conditions of equality are false.Due to the sequential declaration,Red>Yellow>Green.
+
+instance Show TrafficLight where
+show Red = " Red light "
+show Yellow = " Yellow light "
+show Green = " Green light "
+This is the instance declaration of data type TrafficLight for Show typeclass.If deriving keyword was used,then Red would have shown Red as output.But now it would show Red light as declared above.
+Same can be done for all typeclasses.
+ 
+When the user defines an instance of a data type for a typeclass, warnings for non exhaustive patterns can be turned on.It will warn the user if the instance declared has not covered all possible inputs that can be given with that data type.
+Eg- f::Int->Bool
+    f 1 =True
+On executing this, the user would get a warning meesage because here the output for numbers other than 1 is not specified.
+The warnings can be turned on by using Wall flag.
+Prelude> :set -Wall
+Prelude> :l code/fileName.hs
+After executing this code,the user will get warning if instance declaration has not included output for any possible input.Ideally in the instance declaration,there should be one unconditional case that covers every possible input.
+
+CARDINALITY
+This is defined as the total number of possible values a data type can have.
+Eg- Bool has cardinality 2 because it can have two possible values.
+
+SUM AND PRODUCT DATA TYPES
+The values of sum data type are separated by | (disjunction/or operator) which means variable of sum data type can have one of the values among all the values defined in data type declaration.
+Eg- Bool - It can have either True or False as value.
+
+The values of product data type are not separated by any operator which means variable of product data type takes the required number of arguments as defined in data type declaration and stores them as a single entity.
+Eg- Record Syntax,Association list - They take multiple values to form one single variable. 
+
+ASSOCIATION LISTS 
+These are the lists used to store pairs of data which are recognised by the key value irrespective of the order.Values in association list can only be stored as strings.No other data pairs can be stored. 
+Eg- List of pairs of roll and name. ->
+rollbook=
+ [('1' "archi")
+  ,('2' "ritu")
+  ,('3' "neha")
+ ]
+
+RECORD SYNTAX
+Can be used to store different details of an object in a single entity (like structure in C++).
+Eg- data Student=Student {name::String
+                         ,roll::Int
+                         ,class::Int
+                         ,address::String
+                         }deriving (Show)
+Each value of Student is a function that takes a data type(as mentioned in definition) and returns Student.  
+Values can be assigned as -
+Student{Name="Prachi",Roll=10,Class=11,Address="Upper Bazar"}
+Their is no need to be specific about the order of assignment if all the elements are assigned with values.
+
+FIXITY DECLARATIONS
+When functions are to be defined as operators, fixtity declarations can be used.A fixity states operator's associativity and how tightly it binds (precedence).
+Eg- '*' fixity is infixl 7 * and '+' fixity is infixl 6 +.
+That means both are left associative but * binds tighter than +.(* has higher precedence than +).
+
+OPERATOR DEFINITIONS
+The functioning of an infix operator (which is not already defined in built-in library) can be defined by using infix keyword.
+Eg- infixr 5 :-:
+data list a=Empty|a (List a) deriving (Show,Read,Eq,Ord)
+Here ':-:' operator is defined as the replacement of cons (:) operator. The defination means that :-: operator is right associative with fixity value 5 and it works as cons operator (used for inserting elements in a list)
+
+BINARY SEARCH TREE 
+A data structure comprising of a root node which is further joined to two sub trees and they are joined to two nodes and two (or one or none) more sub trees each just like branches of a tree.The last node which does not has its subtrees is called leaf. Each node stores a value, the values on the left of root node are smaller and the value on the right are bigger than the value stored in root node.So to search for a value, first it is compared to the root node value and the the search is continued accordingly (left if the value is smaller than root value and right if value is bigger than root value).It is defined as
+data Tree a=EmptyTree|Node a (Tree a) (Tree a) deriving (Show,Read,Eq).
+
+Either a b DATA TYPE 
+The variable of either data type can have value of either a or b type.It can be used to represent a value which is either correct or an error. By convention Left constructor is used to hold an error value and Right constructor is used to hold a correct value (since right means correct). It is defined as 
+data Either a b=Left a|Right b
+
+FUNCTOR TYPECLASS
+A variable which can be mapped over is Functor typeclass member. Eg- Lists, Maps etc.
+An instance of functor typeclass can be defined as
+class Functor f where
+fmap :: ( a -> b ) -> f a -> f b
+fmap takes a function from one type to another and a functor applied with one type and returns a functor applied with another type. Here f is not a concrete type rather it is a type constuctor which takes a parameter and produces a concrete type (eg [] represents a type constructor-list which can have any value [Int],[Char] etc but [a] is already a concrete type. Like Maybe is a type constructor but Maybe a is a concrete type). 
+
+Types can be imagined as a box with various compartments which can either be empty or can hold some value. [] or Maybe are type constructors or empty boxes which can hold any value int,char,float etc.
+But [a] or Maybe a are concrete types i.e. boxes with compartments which can hold specific type of values only.
+
+PIPING THE CONTENTS OF ONE FILE INTO ANOTHER FILE AS INPUT
+A text file can be 'piped' as an input to another file which contains programs to alter the contents for producing the required output.
+Eg- A file words.txt is to be piped into another file dm1.hs which contains a program to convert the input into uppercase.
+$ ghc --make dm1.hs
+$ cat words.txt|runhaskell dm1.hs
+This will display the whole contents of words.txt (converted into uppercase) on the output screen.The same program can be used to get input from user and then display it after converting into uppercase (run time).
+
+USING FILES IN THE PROGRAM
+So far,input of a program was being read from the terminal.But input and output can be operated by using file system also.
+Eg-import System . IO
+main = do
+handle <- openFile "words.txt" ReadMode
+contents <- hGetContents handle
+putStr contents
+hClose handle
+This is a program to read the contents of a file and display it on the output screen.
+
+OPENFILE FUNCTION
+openFile :: FilePath -> IOMode -> IO Handle
+openFile function takes a filename(or file path) and an IOmode and returns an IO action that opens the file in the specified mode and that IO action is stored in a handle so that it can be used.
+Eg- handle<-openFile "words.txt" ReadMode
+This would open words.txt in read mode.
+
+HANDLE
+Handle is a kind of variable in which the IO action generated by openFile function is stored.If the IO action is not stored,the user would be unable to do anything with the file.This is similar to storing the output returned by a function,if the output is not stored in a variable,it would be useless to generate the output as it can neither be printed nor could be used in further calculations .
+
+IOMODE
+IOMode data type is defined as-
+data IOMode=ReadMode|WriteMode|AppendMode|ReadWriteMode
+It specifies the mode in which the user want to open a file.
+
+HGETCONTENTS
+hGetContents :: Handle -> IO String
+It takes a handle which specifies the file name from which the content is to be obtained and returns an IO String-an IO action that holds as it's result the contents of the file.Since hGetContents is a lazy function,it would not read the whole content of the file at once,rather it would read only the part that is required for the program when needed.
+Eg-contents<-hGetContents handle
+It would store the data of file in the variable contents(logically).
+
+CONTENTS
+contents is a kind of variable that stores the result of hGetContents. It has to be stored in a variable in order to be used further.Contents can be treated as the whole content of the file without actually loading the file in the memory.It would read the required part of the file only when it has to produce an output.It is really useful while working with huge files.
+
+DIFFERENCE B/W HANDLE AND CONTENTS
+Handle is used to store the IO action which opens the file whereas contents stores the whole contents of the file which is specified by the handle.
+
+HCLOSE
+hClose :: Handle -> IO ()
+It takes a handle and returns an IO action which closes the file specified by the handle.
+
+WITHFILE FUNCTION
+withFile :: FilePath -> IOMode -> (Handle -> IO a) -> IO a
+This function takes a file name(or path), an IOMode and a function of type (Handle->IO a) and returns an IO action that opens the file, implements the function on the file content and closes it.The result incapsulated in the final IO action is the result returned by the function provided.
+
+hGetContents works similarly as getContents (getContents operates from terminal and hGetContents operates on the file recieved from its handle),hGetLine,hPutStr,hPutStrLn,hGetChar work similarly as their counterparts without h.
+Eg- 1.putStrLn is a function that takes a string and returns an I/O action that will print out that string to the terminal and a newline after it. hPutStrLn takes a handle and a string and returns an I/O action that will write that string to the file associated with the handle and then put a newline after it.
+    2.getLine is a funtion that reads the input from the terminal and hGetLine is a function that takes a handle and returns an IO action that reads a line from the file specified by the handle.
+
+BUFFERING
+Buffering is the method which decides how a particular file is to be read.The default buffering for text files is line buffering and for binary files block buffering.
+
+SETTING THE BUFFERING MODE
+Buffering mode can be controlled by using the function hSetBuffering. It takes a handle and a BufferMode and returns an IO action that sets the buffering mode as specified.The possible values that BufferMode can take are- NoBuffering,LineBuffering and BlockBuffering (Maybe Int).
+
+LINE BUFFERING
+The smallest part of the file is determined and data equal to that line is read at one time in one line.After that another line eqaul to that part is read in one line and so on.
+
+BLOCK BUFFERING
+The file would be read one block at a time and the size of block is decided by the operating system.The (Maybe Int) part in block bffering determines the size of one block which is to be read from the file.If it is called with Nothing as value, the operating system automatically decides a suitable chunk size. 
+Eg- hSetBuffering handle $ BlockBuffering (Just 2048)
+This would read the whole file in chunks of 2048 bytes instead ofreading it line by line.
+
+NO BUFFERING
+The file would be read one character at a time.It is not preffered because it requires a high frequency of disk accession.
+
+RANDOMGEN TYPECLASS
+The members of RandomGen typeclass can act as the source of randomness.
+
+RANDOM TYPECLASS
+The members of Random typeclass can take random values.
+Eg-Data type Bool can take two random values-True or False.
+   Data type Int can take a variety of random values
+   (-ve and +ve numbers including 0).
+
+Strings in haskell are lazy.The lists used until now are actually promises to give the elements when needed by the program.This laziness fills the memory space with promises (thunks) instead of actual data. While working with large files, the efficiency of program decreases due to laziness hence bytestrings are used.
+
+BYTESTRINGS
+These are the list in which each element is of size 1 byte (8 bits). There are two types of bytestrings in haskell - Strict Bytestrings and Lazy Bytestrings.
+
+STRICT BYTESTRING
+The functioning of this bytestring does not involve any kind of thunks (promises). It works like list of imperative language i.e. even if a single value is to be used in the program, whole list will be evaluated.
+This will also fill up the memory space as the whole list is read into the memory at once.It is available in Data.ByteString.
+
+LAZY BYTESTRINGS
+This has the properties of both lazy strings and strict bytestrings and is more memory efficient comparatively.In this list, each elements is stored in a separate chunk of size 64K. During the evaluation, first 64k is evaluated and rest of the list comprises of promises to get data when needed. It is available in Data.ByteString.Lazy.
+
+Data.ByteString and Data.ByteString.Lazy have many functions which are present in Data.List. But functions in Data.ByteString have different type signature. In Data.ByteString functions, [a] is replaced by ByteString and a is replaced by Word8.
+
+MONOIDS
+Monoid is a special typeclass that generalizes the laws of associativity and identity applied on binary operation of append across the types. In simple words, monoid is a function that takes two arguments and and follows two laws, associativity and identity.
+
+ASSOCIATIVITY
+It means that the arguments of an operation could be regrouped or reparanthesized in different orders without any effect of the final result. (As in addition,the order of numbers does not effect the final result i.e. Sum.)
+
+IDENTITY
+It is value which when passed to the binary function, the operation returns the second value invariably.
+
+For a type to be an instance of Monoid Typeclass, atleast one instance with all three elements of monoid function must be defined for it i.e. mempty, mappend and mconcat.
+
+MEMPTY
+mempty is the identity value for the mappend function. This means whenever the mappend will be called with mempty as one argument, the mappend will return the second argument unmodified.
+
+MAPPEND
+mappend is the operation or function which defines how two values of a type could be joined together. mappend must be an associative operation i.e. the order of two arguments passed as input to the function must NOT effect the final result of the function
+
+<>
+This is the infix operator for mappend function. It could be used 
+Eg- mappend (Sum 1) (mappend (Sum 2) (Sum 3)) -> Sum {getSum = 6}
+    (Sum 1) <> (Sum 2) <> (Sum 3)             -> Sum {getSum = 6}
+
+MCONCAT
+
+
+Integers form a monoid under summation and multiplication. We can similarly say that lists form a monoid under concatenation
+
+NEWTYPE
+newtype keyword is used to enwrap a data type with another name. Using newtype would increase the clarity of code beacause it enables the user to use the same underlying data type with different names in different functions. 
+When a data type has more than one valid implementation of Monoid, newtype is used to differentiate them.
+
+
