@@ -1,10 +1,10 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.31.2.
+-- This file has been generated from package.yaml by hpack version 0.36.0.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 235782ebd17a3bf3ae739a195a9d78d16285843abb5d02220171113d1d7a4f1e
+-- hash: 428b5853d82362204b9e79c0d0ce5d8476859be090674ea51d882962e81cf650
 
 name:           my-project
 version:        0.1.0.0
@@ -28,7 +28,6 @@ source-repository head
 library
   exposed-modules:
       HaskellClass
-      Lib
       MatchStick
       MatchStickLogic
       MatchStickUtilities
@@ -39,8 +38,6 @@ library
       RWSMonad
       StateMonad
       StringExpression
-      T1
-      Traverse
       Tree
       Types
       WriterMonad
